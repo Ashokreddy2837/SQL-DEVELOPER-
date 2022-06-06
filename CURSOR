@@ -1,0 +1,100 @@
+CURSOR:
+======
+	Cursor is private SQL memory which is used to process the multiple rows and record by record process.
+		1.Implicit cursor
+		2.Explicit cursor 
+
+Explicit cursor:
+===============
+	For SQL Statements returns multiple records and record by record by is called Explicit cursor.
+		--> Declare
+		--> Open
+		--> Fetch
+		--> close
+
+EX:
+==
+	declare
+	cursor c1 is select ename,sal from emp;
+	v_ename varchar(10);
+	v_sal number(10);
+	begin
+	open c1;
+	fetch c1 into v_ename,v_sal;
+	dbms_output.put_line(v_ename||' '||v_sal);
+	close c1;
+	end;
+	/
+SMITH 800
+
+
+Implicit cursor Attributes:
+==========================
+	1.%notfound
+	2.%foun
+	3.%isopen
+	4.%rowcount
+
+%notfound:
+=========
+	This attribute always return boolean value true or false.whenever fetch statement does not fetch any row from the cursor memory area then only
+ %notfound attribute returns true.if fetch statement returns at least one row from the cursor memory are then %notfound returns false.
+
+Q)Write a PLSQL Programe to display total salary from emp table with out using sum function?
+
+	delare
+	cursor c1 is select sal from emp;
+	v_sal numbar(20);
+	n number(20);
+	begain
+	open c1
+	loop
+	fetch c1 into v_sal;
+	exit when c1%not found;
+	n:=n+v_sal;
+	end loop;
+	close c1;
+	end;
+	/ 
+
+Q)write a plsql cusrsor progaram to display total salary from emp table with out using sum function?
+	
+	declare
+	cursor c1 is select sal from emp;
+	n number(10) :=0;
+	begin
+	for i in c1
+	loop
+	n := n+i.sal;
+	end loop;
+	DBMS_OUTPUT.PUT_LINE('TOTAL SAL:'||N);
+	end;
+	/
+
+%foun:
+=====
+	%found attribute returns true or false. When fetch statment fetch data from cursor memory it returns true.then fetech statement dos'nt fetch any data from 
+cursore memory then i it will be rturn false.
+
+%rowcount:
+=========
+	This Attributes always return number data type that is it count number of records fetches from it's cursor memory area.
+
+
+
+Implicit cursor:
+==============
+	 SQL Statment returns a single record is called implicit cursor.Implicit cursor memory is also called as context area.
+		Attributes
+		  1.sql%notfound
+		  2.sql%found
+		  3.sql%open
+		  4.sql%rowcount
+	In all databases sql%open returns false and reaming all Attributes returns true or false.
+
+
+
+
+
+
+
